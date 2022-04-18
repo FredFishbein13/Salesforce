@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+
+<div class="container">  
+    <form id="reportsForm">
+        <div class="logo">
+            <img src="https://www.sculptology.com/wp-content/uploads/2021/01/Primary-Logo.png" alt="" width="140"/>
+            </div>
+      <h3>Free Consultation</h3>
+      <h4>Contact us</h4>
+      <fieldset>
+        <input type="text" name="SFNAME" placeholder="NAME" id="SF1" tabindex="1" required autofocus>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="SFDOB" placeholder="DOB" id="DOB1" tabindex="2" required>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="SFEMAIL" placeholder="EMAIL" id="EMAIL1" tabindex="3" required>
+      </fieldset>
+      <fieldset>
+        <textarea name='SFNOTE' placeholder="Type your message here...." id="NOTE1" tabindex="5" required></textarea>
+      </fieldset>
+      <fieldset>
+        <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+      </fieldset>
+      <p class="copyright">Designed by openBots <a href="https://www.sculptology.com/" target="_blank" title="openBots"></a></p>
+    </form>
+  </div>
+
+
+<!-- Orignial -->
+<body>
+    <!-- <form id="reportsForm">
+        <input type="text" name="SFNAME" placeholder="NAME" id="SF1" value=""/>
+        <input  type="text" name='SFDOB' placeholder="DOB" id="DOB1"/>
+        <input  type="text" name='SFSS' placeholder="Email" id="EMAIL1"/>
+        <input type="submit" value="Submit" />
+    </form> -->
+
+    <script>
+        const reportsForm = document.getElementById("reportsForm")
+        reportsForm.addEventListener('submit', async (event) => {
+            event.preventDefault()
+
+            const name = document.getElementById("SF1").value;
+            const dob = document.getElementById("DOB1").value;
+            const email = document.getElementById("EMAIL1").value;
+            const note = document.getElementById("NOTE1").value;
+
+            // Do some form validation before submit
+
+            const payload = { name, dob, email, note }
+
+            const response = await fetch('/api/records', {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json, text/plain",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+
+            console.log(await response.json(), 'final response ...')
+        })
+    </script>
+
+
+</body>
+</html>
